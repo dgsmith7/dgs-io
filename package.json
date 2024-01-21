@@ -1,0 +1,23 @@
+{
+  "name": "dgs-io",
+  "version": "1.0.0",
+  "description": "Personal NFT mint on Arbitrum",
+  "type": "module",
+  "main": "app.js",
+  "scripts": {
+    "test": "npx hardhat test",
+    "dev": "npx nodemon index.js",
+    "start": "node index.js",
+    "build:digitalocean": "npm install --production=false && npm run build && npm ci",
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dgsmith7/dgs-io.git"
+  },
+  "author": "David Gail Smith, DGS Creative, LLC",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dgsmith7/dgs-io/issues"
+  },
+  "homepage": "https://www.davidgailsmith.io"
+}
