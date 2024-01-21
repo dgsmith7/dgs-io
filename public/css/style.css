@@ -10,7 +10,11 @@ html {
 
 body {
   background-color: RGB(165, 167, 188);
-  font-family: orbitron;
+  font-family: jura;
+}
+
+#splash {
+  font-family: jura;
 }
 
 /* div {
