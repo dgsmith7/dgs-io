@@ -8,13 +8,12 @@ html {
   box-sizing: inherit;
 }
 
-body {
-  background-color: RGB(165, 167, 188);
+body,
+header,
+footer {
+  background-color: #000000;
   font-family: jura;
-}
-
-#splash {
-  font-family: jura;
+  color: #000000;
 }
 
 /* div {
@@ -35,6 +34,22 @@ card {
   min-height: 400px;
 }
 
+#vob {
+  max-height: 35px;
+}
+
+#emblem {
+  max-height: 75px;
+}
+
+#artist-face img {
+  float: left;
+}
+
+#artist-face img {
+  max-height: 175px;
+}
+
 .fadein {
   animation: fadeInAnimation ease 2s;
   animation-iteration-count: 1;
@@ -50,10 +65,89 @@ card {
 }
 
 #splash {
-  min-height: 800px;
-  background: url("/images/DeepDreamTwoPaintings.jpeg");
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
-  background-attachment: fixed;
+  max-height: 100px;
+}
+
+#dark-mode-switch {
+  background-color: #ffffff;
+  border-color: #000000;
+  box-shadow: none;
+  min-height: 30px;
+  min-width: 45px;
+}
+
+#dark-mode-switch:hover {
+  background-color: #ffffff;
+  border-color: #000000;
+  box-shadow: none;
+}
+
+#dark-mode-switch:focus {
+  background-color: #ffffff;
+  border-color: #000000;
+  background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'><circle r='3' fill='%23adb5bd'/></svg>");
+}
+
+#dark-mode-switch:checked {
+  background-color: #000000;
+  border-color: #00cc00;
+  color: #adb5bd;
+  box-shadow: none;
+}
+
+#dark-mode-switch:after {
+  background-color: #adb5bd;
+  color: #adb5bd;
+  border-color: #adb5bd;
+  box-shadow: none;
+}
+
+.buttons-dark {
+  color: #00cc00;
+  border-color: #00cc00;
+  background: #0f0f23;
+  transition: 1500ms;
+}
+
+.buttons-light {
+  color: #000000;
+  border-color: #000000;
+  background: #ffffff;
+  transition: 1500ms;
+}
+
+.logo-dark {
+  fill: #00cc00;
+  transition: 1500ms;
+}
+
+.logo-light {
+  fill: #000000;
+  transition: 1500ms;
+}
+
+.bhf-light {
+  background-color: #ffffff;
+  font-family: jura;
+  color: #000000;
+  transition: 1500ms;
+}
+
+.bhf-dark {
+  background-color: #0f0f23;
+  color: #00cc00;
+  text-shadow: 0 0 3px #00cc00, 0 0 2px #00cc00;
+  transition: 1500ms;
+}
+
+.contact-form-light input,
+.contact-form-light #contact-button {
+  background-color: #ffffff;
+  border: 1px solid #000000;
+}
+
+.contact-form-dark input,
+.contact-form-light #contact-button {
+  background-color: #0f0f23;
+  border: 1px solid #00cc00;
 }

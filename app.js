@@ -28,9 +28,7 @@ app.get("/", async (req, res, next) => {
         contracts.push(item.contractAddress);
         mints.push(0); // initializing parallel array
       });
-      let featuredRand = Math.floor(Math.random() * projects.length);
       res.render("index.ejs", {
-        featuredProject: projects[featuredRand],
         contracts: contracts,
         mints: mints,
         projects: projects,
@@ -39,41 +37,29 @@ app.get("/", async (req, res, next) => {
     .catch(next);
 });
 
-// app.get("/projects", (req, res) => {
-//   res.render("projects.ejs", {
-//     contracts: contracts,
-//     mints: mints,
-//     projects: projects,
-//   });
-// });
+app.get("/project/:id", (req, res) => {
+  let id = req.params.id;
+  if (id > projects.length) {
+    throw new Error("No project with that ID");
+  }
+  res.render("project.ejs", {
+    project: projects[id - 1],
+    contracts: contracts,
+    mints: mints,
+    projects: projects,
+  });
+});
 
-// app.get("/project/:id", (req, res) => {
-//   let id = req.params.id;
-//   if (id > projects.length) {
-//     throw new Error("No project with that ID");
-//   }
-//   res.render("project.ejs", {
-//     project: projects[id - 1],
-//     contracts: contracts,
-//     mints: mints,
-//     projects: projects,
-//   });
-// });
-
-// app.get("/contact", (req, res) => {
-//   res.render("contact.ejs");
-// });
-
-// app.post("/mail", async (req, res) => {
-//   await utils
-//     .sendMessage(req.body.sub, req.body.txt)
-//     .then(() => {
-//       res.send({ result: "success" });
-//     })
-//     .catch(() => {
-//       res.send({ result: "failure" });
-//     });
-// });
+app.post("/mail", async (req, res) => {
+  await utils
+    .sendMessage(req.body.sub, req.body.txt)
+    .then(() => {
+      res.send({ result: "success" });
+    })
+    .catch(() => {
+      res.send({ result: "failure" });
+    });
+});
 
 app.use(async (err, req, res, next) => {
   console.log(err);
