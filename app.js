@@ -37,27 +37,28 @@ app.get("/", async (req, res, next) => {
     .catch(next);
 });
 
-app.get("/project/:id", (req, res) => {
-  let id = req.params.id;
-  if (id > projects.length) {
-    throw new Error("No project with that ID");
-  }
-  res.render("project.ejs", {
-    project: projects[id - 1],
-    contracts: contracts,
-    mints: mints,
-    projects: projects,
-  });
-});
+// app.post("/project/:id", (req, res) => {
+//   let id = req.params.id;
+//   // if (id > projects.length) {
+//   //   throw new Error("No project with that ID");
+//   // }
+//   console.log(id);
+//   // res.render("project.ejs", {
+//   //   project: projects[id - 1],
+//   //   contracts: contracts,
+//   //   mints: mints,
+//   //   projects: projects,
+//   // });
+// });
 
 app.post("/mail", async (req, res) => {
   await utils
     .sendMessage(req.body.sub, req.body.txt)
     .then(() => {
-      res.send({ result: "success" });
+      res.send({ result: "Success" });
     })
     .catch(() => {
-      res.send({ result: "failure" });
+      res.send({ result: "Failure" });
     });
 });
 

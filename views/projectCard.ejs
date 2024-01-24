@@ -1,6 +1,6 @@
 <div class="card m-2 h-100 fadein">
   <img src="<%=image %>" class="card-img-top" alt="An image of the <%= name %> project">
-  <div class="h-100">
+  <div class="title-box h-100">
     <div class="card-title col text-center">
       <p class="h4 m-2">
         <strong>
@@ -10,7 +10,8 @@
     </div>
   </div>
   <div class="card-footer">
-    <div id="id-holder" class="id-holder d-none"><%= ident %></div>
-    <a href="<%= link %>" class="project-link btn btn-primary">Project Profile</a>
+    <a href="/#single-project-area"><button id="b-<%= ident %>"
+        class="buttons-light project-link btn btn-primary">Project
+        Profile</button></a>
   </div>
 </div>

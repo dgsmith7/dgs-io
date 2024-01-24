@@ -26,27 +26,35 @@
       <div class="container-fluid">
         <div>
           <div class="spacer"></div>
-          <div id="hero-text" class="text-center">
+          <div id="hero-text" class="text-center mb-4">
             <h1 class="display-5 display-md-3">David G. Smith, visual artist</h1>
-            <p>Eclectic Art NFTs on the Arbitrum One network</p>
+            <p class="fs-5"><em>Eclectic Art NFTs on the Arbitrum One network</em></p>
           </div>
         </div>
       </div>
     </section>
     <!-- Projects area -->
     <section id="projects-area">
-      <div class="container-fluid border-bottom">
+      <div class="container-fluid">
         <div>
           <div class="spacer"></div>
           <div id="contracts" class="d-none"><%= contracts %></div>
           <div id="mints" class="d-none"><%= mints %></div>
           <div id="projects" class="d-none"><%= JSON.stringify(projects) %></div>
-          <h1 class="display-5 justify-content-center text-center">Projects</h1>
+          <h1 class="fs-2 justify-content-center text-center mt-5">Projects</h1>
           <div class="mb-5">
             <div class="row justify-content-center">
+
+              <div id="search-box" class="contact-form-light row mb-3 justify-content-center">
+                <div class="col-4">
+                  <input class="contact-form-light form-control" id="search-term"
+                    placeholder="Search project names and descriptions"></input>
+                </div>
+              </div>
+
               <div class="row row-cols-1 row-cols-sm-3 row-cols-lg-4 g-3 text-center justify-content-center">
                 <% projects.forEach((item, index) => {%>
-                <div id="project-holder" class="col-10">
+                <div id="project-holder-<%= item.id %>" class="col-10">
                   <% let link ="/project/"+item.id %>
                   <%- include('projectCard', {image: item.img_url, name: item.project_name, ident: item.id, link: link}); %>
                 </div>
@@ -57,8 +65,16 @@
         </div>
       </div>
     </section>
+
+    <!-- Single Project Area -->
+    <section id="single-project-area">
+      <div class="spacer"></div>
+      <div id="single-project" class="d-none container-fluid">
+      </div>
+    </section>
+
     <!-- Artist / Contact area -->
-    <section id="artist" class="m-3 border-bottom">
+    <section id="artist" class="m-3">
       <div class="container col-xl-10 col-xxl-8 px-4 py-5">
         <div class="row justify-content-center g-lg-5 py-5">
           <div class="col-lg-6 justify-content-center mb-5">
@@ -68,8 +84,8 @@
               </div>
               <div id="artist-text">
                 <p class="m-2 fs-4 text-center"><strong>Artist David Gail Smith</strong></p>
-                <p class="m-2 text-center"><em>BRIDGING TRADITIONAL WITH FUTURISTIC</em></p>
-                <p class="m-2">I am a visual artist currently based in Dallas, Texas.
+                <p class="m-2 fs-5 text-center"><em>BRIDGING TRADITIONAL WITH FUTURISTIC</em></p>
+                <p class="m-2 fs-5">I am a visual artist currently based in Dallas, Texas.
 
                   I began writing code as a teen on a TI-99/4a and later an Apple //c until leaving home for college in
                   the
@@ -107,29 +123,53 @@
 
 
           <div class="col-md-10 mx-auto col-lg-6">
-            <h2 class="display-6 fw-bold lh-1 mb-3">Question? Comment? Reach out here.
-            </h2>
-            <p class="fs-4 mb-4">I will return your message as soon as I am able. Thank you.</p>
-            <form id="contact-form" class="contact-form-light p-4 p-md-5 border rounded-3">
-              <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="floatingFirst" required>
-                <label class="text-dark fs-3" for="floatingFirst"><strong>First Name</strong></label>
+            <h2 class="fs-2 text-center fw-bold lh-1 mb-3">Question? Comment?</h2>
+            <h2 class="fs-2 text-center fw-bold lh-1 mb-3">Reach out here.</h2>
+            <p class="fs-5 mb-5 text-center">I will return your message as soon as I am able. Thank you.</p>
+            <form id="contact-form" class="contact-form-light needs-validation p-4 p-md-5 border rounded-3">
+              <div class=" mb-3">
+                <label class="bhf-light fs-6" for="contact-first"><strong>First Name</strong></label>
+                <input type="text" id="contact-first" class="form-control" required>
+                <div class="invalid-feedback">
+                  Please enter your first name
+                </div>
               </div>
-              <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="floatingLast" required>
-                <label class="text-dark fs-3" for="floatingLast"><strong>Last Name</strong></label>
+              <div class=" mb-3">
+                <label class="bhf-light fs-6" for="contact-last"><strong>Last Name</strong></label>
+                <input type="text" id="contact-last" class="form-control" required>
+                <div class="invalid-feedback">
+                  Please enter your last name
+                </div>
               </div>
-              <div class="form-floating mb-3">
-                <input type="email" class="form-control" id="floatingEmail" required>
-                <label class="text-dark fs-3" for="floatingEmail"><strong>Email address</strong></label>
+              <div class=" mb-3">
+                <label class="bhf-light fs-6" for="contact-email"><strong>Email address</strong></label>
+                <input type="email" id="contact-email" class="form-control" required>
+                <div class="invalid-feedback" id="contact-email-help">
+                  Format should be like name@example.com
+                </div>
               </div>
-              <div class="form-floating mb-3">
-                <input type="text" class="form-control" size="7" maxlength="1000" id="floatingMessage" required>
-                <label class="text-dark fs-3" for="floatingMessage"><strong>Message</strong></label>
+              <div class=" mb-3">
+                <!-- <input type="text" id="message" class="form-control" size="7" maxlength="1000" required>
+                <label class="text-dark fs-3" for="message"><strong>Message</strong></label>
+                <div id="contact-message-help" class="invalid-feedback">
+                  Please enter your message up to 1000 characters
+                </div> -->
+                <!-- <div class="input-group has-validation"> -->
+                <label class="bhf-light fs-6" for="contact-message"><strong>Message</strong></label>
+                <textarea class="form-control" id="contact-message" style="height: 225px" maxlength="1000"
+                  required></textarea>
+                <div id="message-help" class="invalid-feedback">
+                  Please enter your question or comment up to 1000 characters.
+                </div>
+                <!-- </div> -->
               </div>
-              <button id="send-contact" class="w-100 buttons-light btn btn-outline-light" type="submit">Reach
-                out</button>
-              <div id="contact-button-response"></div>
+              <div class="mb-3">
+                <button id="send-contact" type="submit" class="my-3 w-100 buttons-light btn btn-outline-light">Reach
+                  out</button>
+                <button id="contact-button-response" type="button"
+                  class="my-3 w-100 buttons-light btn btn-outline-light">Reset
+                  Form</button>
+              </div>
               <hr class="my-4">
               <div class="text-center justify-content-evenly">
                 <svg id="handshake" class="logo-light me-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"

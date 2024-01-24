@@ -11,14 +11,10 @@ html {
 body,
 header,
 footer {
-  background-color: #000000;
-  font-family: jura;
+  background-color: #ffffff;
+  font-family: "Jura", sans-serif;
   color: #000000;
 }
-
-/* div {
-  border: 1px solid red;
-} */
 
 @keyframes fadeInAnimation {
   /*for div fade-in */
@@ -69,40 +65,35 @@ card {
 }
 
 #dark-mode-switch {
-  background-color: #ffffff;
-  border-color: #000000;
-  box-shadow: none;
   min-height: 30px;
   min-width: 45px;
 }
 
-#dark-mode-switch:hover {
-  background-color: #ffffff;
+#dark-mode-switch,
+#dark-mode-switch:hover,
+#dark-mode-switch:focus {
+  background-color: #adb5bd;
   border-color: #000000;
   box-shadow: none;
 }
 
 #dark-mode-switch:focus {
-  background-color: #ffffff;
-  border-color: #000000;
-  background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'><circle r='3' fill='%23adb5bd'/></svg>");
+  background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'><circle r='3' fill='%23555555'/></svg>");
 }
 
-#dark-mode-switch:checked {
+#dark-mode-switch:checked,
+#dark-mode-switch:after {
   background-color: #000000;
   border-color: #00cc00;
   color: #adb5bd;
   box-shadow: none;
 }
 
-#dark-mode-switch:after {
-  background-color: #adb5bd;
-  color: #adb5bd;
-  border-color: #adb5bd;
-  box-shadow: none;
-}
-
-.buttons-dark {
+.buttons-dark,
+.buttons-dark:hover,
+.buttons-dark:focus,
+.buttons-dark:before,
+.buttons-dark:after {
   color: #00cc00;
   border-color: #00cc00;
   background: #0f0f23;
@@ -136,18 +127,54 @@ card {
 .bhf-dark {
   background-color: #0f0f23;
   color: #00cc00;
-  text-shadow: 0 0 3px #00cc00, 0 0 2px #00cc00;
+  /* text-shadow: 0 0 3px #00cc00, 0 0 2px #00cc00; */
   transition: 1500ms;
 }
 
-.contact-form-light input,
-.contact-form-light #contact-button {
+.n-list-light {
   background-color: #ffffff;
-  border: 1px solid #000000;
+  color: #000000;
+  transition: 1500ms;
 }
 
+.n-list-dark,
+.n-list-dark:hover,
+.n-list-dark:focus,
+.n-list-dark:before,
+.n-list-dark:after {
+  background-color: #0f0f23;
+  color: #00cc00;
+  transition: 1500ms;
+}
+/* .contact-form-light input::placeholder {
+  background-color: #ffffff;
+  color: #000000;
+  transition: 1500ms;
+}
+
+.contact-form-dark input::placeholder {
+  background-color: #0f0f23;
+  color: #00cc00;
+  transition: 1500ms;
+} */
+.contact-form-light textarea {
+  background-color: #ffffff;
+  border: 1px solid #000000;
+  color: #000000;
+  transition: 1500ms;
+}
 .contact-form-dark input,
-.contact-form-light #contact-button {
+.contact-form-dark textarea,
+.contact-form-dark input:hover,
+.contact-form-dark textarea:hover,
+.contact-form-dark input:focus,
+.contact-form-dark textarea:focus,
+.contact-form-dark input:before,
+.contact-form-dark textarea:before,
+.contact-form-dark input:after,
+.contact-form-dark textarea:after {
   background-color: #0f0f23;
   border: 1px solid #00cc00;
+  color: #00cc00;
+  transition: 1500ms;
 }
