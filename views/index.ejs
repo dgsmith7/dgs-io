@@ -15,6 +15,9 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
   <link rel="stylesheet" href="./css/style.css">
+  <!-- <script src="https://www.google.com/recaptcha/api.js?render=6LcF9oEUAAAAAF5-Xs0-u1uieWsU3lRo33oBlhdK"></script> -->
+  <!-- 6LcF9oEUAAAAAF5-Xs0-u1uieWsU3lRo33oBlhdK -->
+  <!-- <script async src="https://www.google.com/recaptcha/api.js"></script> -->
 </head>
 
 <body class="bhf-light">
@@ -28,7 +31,7 @@
           <div class="spacer"></div>
           <div id="hero-text" class="text-center mb-4">
             <h1 class="display-5 display-md-3">David G. Smith, visual artist</h1>
-            <p class="fs-5"><em>Eclectic Art NFTs on the Arbitrum One network</em></p>
+            <p class="fs-5"><em>Eclectic Art NFTs on the <strong><u>Arbitrum One</u></strong> network</em></p>
           </div>
         </div>
       </div>
@@ -42,17 +45,30 @@
           <div id="mints" class="d-none"><%= mints %></div>
           <div id="projects" class="d-none"><%= JSON.stringify(projects) %></div>
           <h1 class="fs-2 justify-content-center text-center mt-5">Projects</h1>
+          <p class="text-center">search and select below</p>
+          <!-- <p class="text-center">search, filter, and select below</p> -->
           <div class="mb-5">
             <div class="row justify-content-center">
 
-              <div id="search-box" class="contact-form-light row mb-3 justify-content-center">
-                <div class="col-4">
-                  <input class="contact-form-light form-control" id="search-term"
-                    placeholder="Search project names and descriptions"></input>
+              <div id="search-box" class="contact-form-light row mb-3 text-center justify-content-center">
+                <div class="col-10 col-sm-8 col-lg-5 col-xl-4">
+                  <input class="contact-form-light form-control" id="search-term" placeholder="Search term"></input>
+                  <div id="search-message" class="d-none">Sorry - no projects meet that criteria.</div>
                 </div>
               </div>
-
-              <div class="row row-cols-1 row-cols-sm-3 row-cols-lg-4 g-3 text-center justify-content-center">
+              <p class="text-center mt-2">filter categories</p>
+              <!-- <div id="filter-tags"
+                class="mt-0 row row-cols-4 row-cols-sm-4 row-cols-md-4 row-cols-lg-5 row-cols-xl-5 g-0 text-center justify-content-center">
+                <button id="all-filter" class="m-2 btn btn-sm active" onclick="filterSelection('all')">All</button>
+                <button id="gen-filter" class="m-2 btn btn-sm" onclick="filterSelection('nature')">Generative</button>
+                <button id="coll-filter" class="m-2 btn btn-sm" onclick="filterSelection('cars')">Colectibles</button>
+                <button id="image-filter" class="m-2 btn btn-sm" onclick="filterSelection('people')">Images</button>
+                <button id="model-filter" class="m-2 btn btn-sm" onclick="filterSelection('people')">3d-models</button>
+                <button id="ai-filter" class="m-2 btn btn-sm" onclick="filterSelection('people')">AI</button>
+                <button id="anim-filter" class="m-2 btn btn-sm" onclick="filterSelection('people')">Animated</button>
+              </div> -->
+              <div
+                class="mt-0 row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-3 text-center justify-content-center">
                 <% projects.forEach((item, index) => {%>
                 <div id="project-holder-<%= item.id %>" class="col-10">
                   <% let link ="/project/"+item.id %>
@@ -69,18 +85,25 @@
     <!-- Single Project Area -->
     <section id="single-project-area">
       <div class="spacer"></div>
-      <div id="single-project" class="d-none container-fluid">
+      <div class="container-fluid">
+        <div class="row text-center justify-content-center">
+          <div id="project-message">
+            <p class="fs-2 d-inline">Select a project from above.</p>
+            <div class="spacer"></div>
+          </div>
+          <div id="single-project" class="d-none"></div>
+        </div>
       </div>
     </section>
 
     <!-- Artist / Contact area -->
     <section id="artist" class="m-3">
-      <div class="container col-xl-10 col-xxl-8 px-4 py-5">
-        <div class="row justify-content-center g-lg-5 py-5">
+      <div class="container col-xl-10 col-xxl-8 px-4 pt-5 pb-1">
+        <div class="row justify-content-center g-lg-5 pt-5 pb-1">
           <div class="col-lg-6 justify-content-center mb-5">
             <div>
               <div id="artist-face" class="m-2">
-                <img class="me-2 border rounded-3" src="./images/davidGailSmith.png" role="img" alt="artist image">
+                <img class="m-2 border rounded-3" src="./images/davidGailSmith.png" role="img" alt="artist image">
               </div>
               <div id="artist-text">
                 <p class="m-2 fs-4 text-center"><strong>Artist David Gail Smith</strong></p>
@@ -127,6 +150,10 @@
             <h2 class="fs-2 text-center fw-bold lh-1 mb-3">Reach out here.</h2>
             <p class="fs-5 mb-5 text-center">I will return your message as soon as I am able. Thank you.</p>
             <form id="contact-form" class="contact-form-light needs-validation p-4 p-md-5 border rounded-3">
+
+              <!-- <input type="hidden" id="g-recaptcha-response" name="g-recaptcha-response">
+              <input type="hidden" name="action" value="validate_captcha"> -->
+
               <div class=" mb-3">
                 <label class="bhf-light fs-6" for="contact-first"><strong>First Name</strong></label>
                 <input type="text" id="contact-first" class="form-control" required>
@@ -149,12 +176,6 @@
                 </div>
               </div>
               <div class=" mb-3">
-                <!-- <input type="text" id="message" class="form-control" size="7" maxlength="1000" required>
-                <label class="text-dark fs-3" for="message"><strong>Message</strong></label>
-                <div id="contact-message-help" class="invalid-feedback">
-                  Please enter your message up to 1000 characters
-                </div> -->
-                <!-- <div class="input-group has-validation"> -->
                 <label class="bhf-light fs-6" for="contact-message"><strong>Message</strong></label>
                 <textarea class="form-control" id="contact-message" style="height: 225px" maxlength="1000"
                   required></textarea>
@@ -164,6 +185,14 @@
                 <!-- </div> -->
               </div>
               <div class="mb-3">
+                <div class="container justify-content-center">
+                  <div id="recaptcha" class="button-light">
+                  </div>
+                </div>
+                <!-- <button id="send-contact" type="submit"
+                  class="my-3 w-100 buttons-light btn btn-outline-light g-recaptcha"
+                  data-sitekey="6LcF9oEUAAAAAF5-Xs0-u1uieWsU3lRo33oBlhdK" data-action="submit">Reach out</button> -->
+                <input type="text" class="d-none" id="ftb">
                 <button id="send-contact" type="submit" class="my-3 w-100 buttons-light btn btn-outline-light">Reach
                   out</button>
                 <button id="contact-button-response" type="button"

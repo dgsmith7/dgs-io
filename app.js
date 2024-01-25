@@ -27,6 +27,10 @@ app.get("/", async (req, res, next) => {
       projects.forEach((item) => {
         contracts.push(item.contractAddress);
         mints.push(0); // initializing parallel array
+        let arr = item.open_date_gmt.toString().split(" ");
+        arr[5] = "";
+        let newDTG = arr.join(" ");
+        item.open_date_gmt = newDTG;
       });
       res.render("index.ejs", {
         contracts: contracts,
@@ -37,30 +41,52 @@ app.get("/", async (req, res, next) => {
     .catch(next);
 });
 
-// app.post("/project/:id", (req, res) => {
-//   let id = req.params.id;
-//   // if (id > projects.length) {
-//   //   throw new Error("No project with that ID");
-//   // }
-//   console.log(id);
-//   // res.render("project.ejs", {
-//   //   project: projects[id - 1],
-//   //   contracts: contracts,
-//   //   mints: mints,
-//   //   projects: projects,
-//   // });
-// });
-
 app.post("/mail", async (req, res) => {
-  await utils
-    .sendMessage(req.body.sub, req.body.txt)
-    .then(() => {
-      res.send({ result: "Success" });
-    })
-    .catch(() => {
-      res.send({ result: "Failure" });
-    });
+  if (req.body.ftb == true) {
+    await utils
+      .sendMessage(req.body.sub, req.body.txt)
+      .then(() => {
+        res.send({ result: "Success" });
+      })
+      .catch(() => {
+        res.send({ result: "Failure" });
+      });
+  } else {
+    res.send({ result: "No mail bots allowed" });
+  }
 });
+
+// app.post("/captcha", async (req, res) => {
+//   if (
+//     req.body.token === undefined ||
+//     req.body.token === "" ||
+//     req.body.token === null
+//   ) {
+//     return res.json({ responseError: "something is wrong" });
+//   } else {
+//   }
+//   const secretKey = process.env.RECAPTCHA_SECRET_KEY;
+//   const verificationURL = `https://www.google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${req.body.token}`;
+//   fetch(verificationURL, {
+//     headers: {
+//       Accept: "application/json",
+//       "Content-Type": "application/json",
+//     },
+//     method: "POST",
+//   })
+//     .then((response) => {
+//       return response.text();
+//     })
+//     .then((text) => {
+//       let info = JSON.parse(text);
+//       if (info.success == true && info.score >= 0.75) {
+//         res.send({ result: "success" });
+//       }
+//     })
+//     .catch((error) => {
+//       res.send({ result: "failure" });
+//     });
+// });
 
 app.use(async (err, req, res, next) => {
   console.log(err);
@@ -68,7 +94,7 @@ app.use(async (err, req, res, next) => {
   msg = err.message;
   if (msg != "No project with that ID") {
     msg =
-      "There was an internal error. Apologies. We are working on cleaning up the mess.";
+      "There was an internal error. Apologies. We are working on cleaning up the mess.  Please try again later.";
   }
   res.render("error.ejs", { msg: msg });
 });

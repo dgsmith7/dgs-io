@@ -30,7 +30,12 @@ card {
   min-height: 400px;
 }
 
-#vob {
+#error-space {
+  height: 500px;
+}
+
+#vob,
+#avatar {
   max-height: 35px;
 }
 
@@ -39,7 +44,7 @@ card {
 }
 
 #artist-face img {
-  float: left;
+  float: right;
 }
 
 #artist-face img {
@@ -93,18 +98,24 @@ card {
 .buttons-dark:hover,
 .buttons-dark:focus,
 .buttons-dark:before,
-.buttons-dark:after {
+.buttons-dark:after,
+.buttons-dark.btn.disabled {
   color: #00cc00;
   border-color: #00cc00;
   background: #0f0f23;
   transition: 1500ms;
 }
 
-.buttons-light {
+.buttons-light,
+.buttons-light.btn.disabled {
   color: #000000;
   border-color: #000000;
   background: #ffffff;
   transition: 1500ms;
+}
+
+.btn.disabled {
+  opacity: 35%;
 }
 
 .logo-dark {
@@ -146,17 +157,7 @@ card {
   color: #00cc00;
   transition: 1500ms;
 }
-/* .contact-form-light input::placeholder {
-  background-color: #ffffff;
-  color: #000000;
-  transition: 1500ms;
-}
 
-.contact-form-dark input::placeholder {
-  background-color: #0f0f23;
-  color: #00cc00;
-  transition: 1500ms;
-} */
 .contact-form-light textarea {
   background-color: #ffffff;
   border: 1px solid #000000;

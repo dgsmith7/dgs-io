@@ -22,7 +22,7 @@ let projectIds = [];
 let mintMessage = "";
 let connect = document.querySelector("#wallet-connect");
 
-// wallet connection
+// wallet connection (also see below)
 await connectWallet();
 document.querySelector("#mints").innerHTML = mintList;
 connect.addEventListener("click", async () => {
@@ -30,6 +30,14 @@ connect.addEventListener("click", async () => {
 });
 if (isConnected) {
   await updateMints();
+  // for (let i = 0; i < mintList.length; i++) {
+  //   let str = "#mint-button-" + (i + 1);
+  //   document.querySelector(str).addEventListener("click", () => {
+  //     console.log("its probabaly something in the function");
+  //   });
+  //   console.log(str);
+  //   console.log(document.querySelector(str));
+  // }
 }
 buildProjectButtons();
 
@@ -43,6 +51,9 @@ searchBox.addEventListener("keyup", (event) => {
   updateProjects();
 });
 
+// set initial page view
+setProjectView();
+
 // contact form buttons
 let form = document.querySelector("#contact-form");
 document.querySelector("#send-contact").addEventListener("click", (event) => {
@@ -50,49 +61,56 @@ document.querySelector("#send-contact").addEventListener("click", (event) => {
     event.preventDefault();
     event.stopPropagation();
   }
-  validateForm();
+  validate();
 });
 
 let formReset = document.querySelector("#contact-button-response");
-formReset
-  .querySelector("#contact-button-response")
-  .addEventListener("click", (event) => {
-    if (event) {
-      event.preventDefault();
-      event.stopPropagation();
-    }
-    resetForm();
-  });
+formReset.addEventListener("click", (event) => {
+  if (event) {
+    event.preventDefault();
+    event.stopPropagation();
+  }
+  resetForm();
+});
 
-//build project buttons
+function setProjectView() {
+  let proj = sessionStorage.getItem("selected");
+  if (proj == null || proj == "" || proj === "NaN") {
+    proj = 1;
+    sessionStorage.setItem("selected", proj.toString());
+  }
+  doProject(parseInt(proj));
+}
+
+// build project buttons
 function buildProjectButtons() {
   for (let i = 0; i < projectList.length; i++) {
     let id = "#b-" + (i + 1);
     document.querySelector(id).addEventListener("click", () => {
       doProject(i + 1);
+      setDarkMode();
     });
   }
 }
 
+// wallet connection (also see above)
 async function connectWallet() {
   if (typeof window.ethereum !== "undefined") {
     try {
-      await ethereum.request({ method: "eth_requestAccounts" });
-      connect.innerHTML = "Connected";
-      provider = new ethers.providers.Web3Provider(window.ethereum);
-      signer = provider.getSigner();
-      const accounts = await ethereum.request({ method: "eth_accounts" });
-      userAddress = "" + accounts[0];
-      console.log("userAddress: ", userAddress);
-      let walletString =
-        userAddress.substring(0, 5) + "..." + userAddress.substring(38, 42);
-      connect.innerHTML = walletString;
-      console.log("provider: ", provider);
-      console.log("wallet: ", userAddress);
-      console.log("signer: ", signer);
-      isConnected = true;
+      let chain = await ethereum.request({ method: "eth_chainId" });
+      if (chain == "0x66eee" || chain == "0xa4b1" || chain == "0x13881") {
+        await ethereum.request({ method: "eth_requestAccounts" });
+        connect.innerHTML = "Connected";
+        provider = new ethers.providers.Web3Provider(window.ethereum);
+        signer = provider.getSigner();
+        const accounts = await ethereum.request({ method: "eth_accounts" });
+        userAddress = "" + accounts[0];
+        let walletString =
+          userAddress.substring(0, 5) + "..." + userAddress.substring(38, 42);
+        isConnected = true;
+      }
     } catch (error) {
-      connect.innerHTML = "Check Metamask";
+      connect.innerHTML = "Check Metamask/Network";
       isConnected = false;
     }
   } else {
@@ -113,10 +131,9 @@ export async function updateMints() {
   mintList = [...newList];
 }
 
-//dark mode stuff
+// dark mode functionality
 export function setDarkMode() {
   let dmSetting = sessionStorage.getItem("dm");
-  console.log(dmSetting);
   switch (dmSetting) {
     case null: {
       goLight();
@@ -210,6 +227,11 @@ export function goDark() {
     e.classList.add("bhf-dark");
     e.classList.remove("bhf-light");
   }
+  let l8 = document.getElementsByClassName("card");
+  for (let e of l8) {
+    e.classList.add("buttons-dark");
+    e.classList.remove("buttons-light");
+  }
 }
 
 export function goLight() {
@@ -263,16 +285,55 @@ export function goLight() {
     e.classList.add("bhf-light");
     e.classList.remove("bhf-dark");
   }
+  let l8 = document.getElementsByClassName("card");
+  for (let e of l8) {
+    e.classList.add("buttons-light");
+    e.classList.remove("buttons-dark");
+  }
 }
 
-//  mail stuff
-function validateForm() {
+// mail functionality
+function validate() {
   let formValid = true;
   if (!form.checkValidity()) {
     formValid = false;
   }
   form.classList.add("was-validated");
   if (formValid) {
+    // grecaptcha.ready(function () {
+    //   grecaptcha
+    //     .execute("6LcF9oEUAAAAAF5-Xs0-u1uieWsU3lRo33oBlhdK", {
+    //       action: "contact",
+    //     })
+    //     .then(function (token) {
+    //       console.log("token ", token);
+    //       let obj = {
+    //         token: token,
+    //       };
+    //       fetch("/captcha", {
+    //         headers: {
+    //           Accept: "application/json",
+    //           "Content-Type": "application/json",
+    //         },
+    //         method: "POST",
+    //         body: JSON.stringify(obj), // Send the form data
+    //       })
+    //         .then((response) => {
+    //           return response.text();
+    //         })
+    //         .then((text) => {
+    //           // make it usable
+    //           let info = JSON.parse(text);
+    //           console.log("info ", info);
+    //           if (info.result == "success") {
+    //             sendTheEmail();
+    //           }
+    //         })
+    //         .catch((error) => {
+    //           console.log("an error - ", error);
+    //         });
+    //     });
+    // });
     sendTheEmail();
   }
   return false;
@@ -299,8 +360,8 @@ function sendTheEmail() {
     }\nThey're email address is ${
       document.querySelector("#contact-email").value
     }`,
+    ftb: document.querySelector("#ftb").value == "",
   };
-
   fetch("/mail", {
     method: "POST",
     headers: {
@@ -313,11 +374,6 @@ function sendTheEmail() {
       document.querySelector("#contact-button-response").innerHTML =
         response.result + " - Reset Form";
     })
-    // .then(() => {
-    //   setTimeout(() => {
-    //     document.querySelector("#contact-button-response").innerHTML = "";
-    //   }, "7000");
-    // })
     .catch((err) => {
       console.log(
         "We were unable to send your message due to an internal error - ",
@@ -326,28 +382,11 @@ function sendTheEmail() {
     });
 }
 
-// minting stuff
-// async function loadProject(id) {
-//   let id = parseInt(document.querySelector("#project-id").innerHTML) - 1;
-//   let mintMessage = "";
-//   if (isConnected) {
-//     await updateMints();
-//     document.querySelector("#mint-quant").innerHTML = mintList[id];
-//     showMints();
-//     updateMintMessage();
-//     document.querySelector("#mint-button").addEventListener("click", () => {
-//       doMintBehaviors();
-//     });
-//   } else {
-//     mintMessage = "Please connect your wallet, then refresh";
-//     document.querySelector("#mint-message").innerHTML = mintMessage;
-//   }
-// }
-
+// minting functionality
 async function doProject(id) {
-  //  await updateMints();
-  console.log(id);
-  console.log(projectList[id - 1]);
+  sessionStorage.setItem("selected", id.toString());
+  document.querySelector("#project-message").classList.remove("d-inline");
+  document.querySelector("#project-message").classList.add("d-none");
   document.querySelector("#single-project").classList.remove("d-none");
   document.querySelector("#single-project").classList.add("d-inline");
   let data = {
@@ -357,35 +396,37 @@ async function doProject(id) {
     projectCode,
     data
   );
-  updateMintMessage(id);
-  showMints(id);
+  try {
+    await showMints(id);
+  } catch {
+    console.log("Please connect a Metamask walleton the Arbitrum One network.");
+  }
+  await updateMintMessage(id);
+  setDarkMode();
+  document.querySelector("#mint-button").addEventListener("click", () => {
+    doMintBehaviors(id);
+  });
 }
 
-async function doMintBehaviors() {
-  document.querySelector("#mint-button").classList.add("disabled");
-  document.querySelector("#mint-button").innerHTML = "Briefly Transacting...";
-  let contractAddress = contractList[id];
-  console.log("Contract: ", contractAddress);
+async function doMintBehaviors(id) {
+  let buttonStr = "#mint-button";
+  document.querySelector(buttonStr).classList.add("disabled");
+  document.querySelector(buttonStr).innerHTML = "Briefly Transacting...";
+  let contractAddress = contractList[id - 1];
   const contract = new ethers.Contract(contractAddress, contractABI, signer);
-  contract.connect(signer);
   let supply = await contract.totalSupply();
   supply = supply.toString();
   let tokenNum = parseInt(supply) + 1;
-  console.log("Token number: ", tokenNum);
-  let summary = JSON.parse(projectList[id].summaryData);
-  console.log(summary);
+  let summary = JSON.parse(projectList[id - 1].summaryData);
   let base_uri = summary.elements[2].metas[supply].ipfs;
-  console.log("BaseURI: ", base_uri);
   let mintPrice = await contract.getMintPrice();
   mintPrice = mintPrice.toString();
   mintPrice = parseFloat(mintPrice);
-  console.log("Mint price: ", mintPrice);
   let value = mintPrice.toString();
-  console.log("Value: " + value + " GWEI.");
   let token = await contract.mintTo(base_uri, { value: value });
-  document.querySelector("#mint-button").innerHTML = "Confirming...";
+  document.querySelector(buttonStr).innerHTML = "Confirming...";
   await token.wait(1);
-  document.querySelector("#mint-button").innerHTML = "Almost done...";
+  document.querySelector(buttonStr).innerHTML = "Almost done...";
   await token.wait(2);
   updateMintMessage();
   window.location.reload();
@@ -395,27 +436,23 @@ async function updateMintMessage(id) {
   if (isConnected == false) {
     mintMessage = "Please connect your wallet, then refresh";
   } else {
-    let contractAddress =
-      contractList[
-        id - 1
-        // parseInt(document.querySelector("#project-id").innerHTML) - 1
-      ];
+    let contractAddress = contractList[id - 1];
     const contract = new ethers.Contract(contractAddress, contractABI, signer);
     contract.connect(signer);
     let supply = await contract.totalSupply();
     supply = supply.toString();
+    document.querySelector("#mint-quant").innerHTML = supply;
     let max = await contract.getMaxSupply();
     max = max.toString();
-    console.log("Total supply is: ", supply);
-    console.log("Max supply is: ", max);
     mintMessage = "Tokens are available. Mint yours now.";
-    let mintButton = document.querySelector("#mint-button");
+    let mintButtonStr = "#mint-button";
+    let mintButton = document.querySelector(mintButtonStr);
     if (projectList[id - 1].active == 0) {
       document.querySelector("#status").innerHTML = "Inactive - ";
-      document.querySelector("#mint-button").classList.add("disabled");
+      mintButton.classList.add("disabled");
     } else {
       document.querySelector("#status").innerHTML = "Active - ";
-      document.querySelector("#mint-button").classList.remove("disabled");
+      mintButton.classList.remove("disabled");
     }
     if (supply == max) {
       mintMessage =
@@ -441,10 +478,10 @@ async function showMints(id) {
     let data = {
       image: image,
       anim: anim,
-      name: projectList[id].project_name,
+      name: projectList[id - 1].project_name,
       edition: i + 1,
-      number: projectList[id].quantity,
-      price: projectList[id].price_eth,
+      number: projectList[id - 1].quantity,
+      price: projectList[id - 1].price_eth,
       metadata: meta,
     };
     str += "<div class='col-10'>" + ejs.render(tokenCardCode, data) + "</div>";
@@ -454,6 +491,7 @@ async function showMints(id) {
 
 function updateProjects() {
   projectIds = [];
+  let count = 0;
   let filter = document.getElementById("search-term").value.toUpperCase();
   projectList.forEach(function (proj, idx) {
     projectIds.push(proj.id);
@@ -465,9 +503,18 @@ function updateProjects() {
     ) {
       pDisplay.classList.add("d-inline");
       pDisplay.classList.remove("d-none");
+      count++;
     } else {
       pDisplay.classList.add("d-none");
       pDisplay.classList.remove("d-inline");
     }
   });
+  let messageHolder = document.querySelector("#search-message");
+  if (count == 0) {
+    messageHolder.classList.add("d-inline");
+    messageHolder.classList.remove("d-none");
+  } else {
+    messageHolder.classList.add("d-none");
+    messageHolder.classList.remove("d-inline");
+  }
 }
