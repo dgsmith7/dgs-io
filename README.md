@@ -5,7 +5,10 @@ Repository for my personal NFT mint on Arbitrum
 todo
 finish tags for project categories after adding to sql.
 add some real projects to db
-deploy
+pagination for large collection mints
+
+contract:
+compile and use frozen metadata: "event PermanentURI(string \_value, uint256 indexed \_id);" (get rid of backslashes) - already added code but haven't compiled
 
 .io?
 ifttt integrations to dicord for twitter OR twitter v2 api and discordJS
