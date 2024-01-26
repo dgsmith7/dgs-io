@@ -423,11 +423,32 @@ async function doMintBehaviors(id) {
   mintPrice = mintPrice.toString();
   mintPrice = parseFloat(mintPrice);
   let value = mintPrice.toString();
-  let token = await contract.mintTo(base_uri, { value: value });
   document.querySelector(buttonStr).innerHTML = "Confirming...";
-  await token.wait(1);
+  let token = await contract.mintTo(base_uri, { value: value }).catch((err) => {
+    console.log(err);
+    document.querySelector(buttonStr).innerHTML =
+      "Failed transaction.  Refreshing.";
+    setTimeout(() => {
+      window.location.reload();
+    }, "3000");
+  });
+  await token.wait(1).catch((err) => {
+    console.log(err);
+    document.querySelector(buttonStr).innerHTML =
+      "Failed transaction.  Refreshing.";
+    setTimeout(() => {
+      window.location.reload();
+    }, "3000");
+  });
   document.querySelector(buttonStr).innerHTML = "Almost done...";
-  await token.wait(2);
+  await token.wait(2).catch((err) => {
+    console.log(err);
+    document.querySelector(buttonStr).innerHTML =
+      "Failed transaction.  Refreshing.";
+    setTimeout(() => {
+      window.location.reload();
+    }, "3000");
+  });
   updateMintMessage();
   window.location.reload();
 }
