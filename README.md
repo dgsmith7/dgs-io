@@ -6,7 +6,6 @@ todo
 finish tags for project categories after adding to sql.
 add some real projects to db
 pagination for large collection mints
-perhaps more error handling for wallet transactions
 
 contract:
 compile and use frozen metadata: "event PermanentURI(string \_value, uint256 indexed \_id);" (get rid of backslashes) - already added code but haven't compiled

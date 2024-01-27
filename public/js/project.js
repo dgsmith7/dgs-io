@@ -51,6 +51,13 @@ export let projectCode = `
 
 <div class="text-center justify-content-center mt-2 mb-2">
   <h2>Mints from <%=project.project_name  %></h2>
+  <!-- p>
+  <button id="back-button">< </button> Viewing 
+  <span id="first"></span> - 
+  <span id="last"></span> of 
+  <span id="total"></span>
+  <button id="fwd-button"> ></button>
+  </p --!>
   <p id="mint-message">Connect Metamask to see mints</p>
 </div>
 <div class="mb-5">
