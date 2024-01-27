@@ -1,4 +1,4 @@
-export let tokenCardCode = `<div class="card m-3 h-100 fadein">
+export let tokenCardCode = `<div class="card m-3 h-100 fadein shadow-lg">
 <img src=<%= image %> class="card-img-top" alt="An image of <%= name %> project">
 <div class="title-box">
 <div class="card-title">

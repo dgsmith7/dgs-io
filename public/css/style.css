@@ -160,7 +160,7 @@ card {
 
 .contact-form-light textarea {
   background-color: #ffffff;
-  border: 1px solid #000000;
+  border: 2px solid #000000ff;
   color: #000000;
   transition: 1500ms;
 }
@@ -175,7 +175,7 @@ card {
 .contact-form-dark input:after,
 .contact-form-dark textarea:after {
   background-color: #0f0f23;
-  border: 1px solid #00cc00;
+  border: 2px solid #00cc00ff;
   color: #00cc00;
   transition: 1500ms;
 }

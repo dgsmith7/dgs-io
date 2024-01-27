@@ -4,7 +4,7 @@ export let projectCode = `
   <div class="col-sm-10 mb-6 p-3 justify-content-center">
     <div class="row justify-content-center">
       <div class="col-sm-10 col-md-5 mt-4 p-3">
-        <div class="card m-2">
+        <div class="card m-2 shadow-lg">
           <img src=<%= project.img_url  %> class="card-img-top" alt="..." />
           <div class="title-box">
             <div class="card-title">

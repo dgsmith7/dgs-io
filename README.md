@@ -6,9 +6,7 @@ todo
 finish tags for project categories after adding to sql.
 add some real projects to db
 bootstrap spinner for mint button instead of bullshit
-toat messages for minting?
-stretched link for minting?
-drop shadows like other website
+toast messages for minting?
 
 - pagination for large collection mints
 
