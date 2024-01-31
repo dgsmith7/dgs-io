@@ -19,7 +19,7 @@
   "bugs": {
     "url": "https://github.com/dgsmith7/dgs-io/issues"
   },
-  "homepage": "https://www.davidgailsmith.io",
+  "homepage": "https://www.dgs-creative.com",
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^16.3.2",

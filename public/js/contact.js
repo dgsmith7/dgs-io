@@ -18,7 +18,7 @@
 
   function sendTheEmail() {
     let obj = {
-      sub: "Someone submitted a contact form!",
+      sub: "Someone submitted an NFT contact form - DGS-Creative.com!",
       txt: `${document.querySelector("#contact-first").value} ${
         document.querySelector("#contact-middle").value
       } ${
