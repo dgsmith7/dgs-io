@@ -357,7 +357,7 @@ function sendTheEmail() {
       document.querySelector("#contact-last").value
     } sent you a message from the contact form on the NFT mint that reads as so: \n${
       document.querySelector("#contact-message").value
-    }\nThey're email address is ${
+    }\nTheir email address is ${
       document.querySelector("#contact-email").value
     }`,
     ftb: document.querySelector("#ftb").value == "",
