@@ -129,7 +129,7 @@ card {
 }
 
 .bhf-light {
-  background-color: #bebebe;
+  background-color: #dbdbdb;
   font-family: jura;
   color: #000000;
   transition: 1500ms;
@@ -143,7 +143,7 @@ card {
 }
 
 .n-list-light {
-  background-color: #bebebe;
+  background-color: #dbdbdb;
   color: #000000;
   transition: 1500ms;
 }
