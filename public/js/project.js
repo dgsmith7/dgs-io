@@ -44,6 +44,8 @@ export let projectCode = `
             wallet]</em></span><span> of
           <%=project.quantity  %> minted</span></h3>
         </p>
+        <p>
+        <h3 class="topic">Contract address: </h3><a href="https://arbiscan.io/address/<%=project.contractAddress  %>#code" target="blank"><%=project.contractAddress  %></a></p>
       </div>
     </div>
   </div>
