@@ -11,7 +11,7 @@ html {
 body,
 header,
 footer {
-  background-color: #ffffff;
+  background-color: #bebebe;
   font-family: "Jura", sans-serif;
   color: #000000;
 }
@@ -129,7 +129,7 @@ card {
 }
 
 .bhf-light {
-  background-color: #ffffff;
+  background-color: #bebebe;
   font-family: jura;
   color: #000000;
   transition: 1500ms;
@@ -143,7 +143,7 @@ card {
 }
 
 .n-list-light {
-  background-color: #ffffff;
+  background-color: #bebebe;
   color: #000000;
   transition: 1500ms;
 }

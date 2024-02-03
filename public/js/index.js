@@ -136,9 +136,9 @@ export function setDarkMode() {
   let dmSetting = sessionStorage.getItem("dm");
   switch (dmSetting) {
     case null: {
-      goLight();
-      sessionStorage.setItem("dm", "light");
-      document.querySelector("#dark-mode-switch").checked = false;
+      goDark();
+      sessionStorage.setItem("dm", "dark");
+      document.querySelector("#dark-mode-switch").checked = true;
       break;
     }
     case "light": {
@@ -148,11 +148,9 @@ export function setDarkMode() {
       break;
     }
     case "dark": {
-      document.querySelector("#dark-mode-switch").checked;
       goDark();
       sessionStorage.setItem("dm", "dark");
       document.querySelector("#dark-mode-switch").checked = true;
-      document.querySelector("#dark-mode-switch").checked;
       break;
     }
   }
