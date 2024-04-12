@@ -114,7 +114,7 @@ async function connectWallet() {
       isConnected = false;
     }
   } else {
-    connect.innerHTML = "Please connect MetaMask";
+    connect.innerHTML = "Connect MetaMask";
     isConnected = false;
   }
 }
@@ -397,7 +397,9 @@ async function doProject(id) {
   try {
     await showMints(id);
   } catch {
-    console.log("Please connect a Metamask walleton the Arbitrum One network.");
+    console.log(
+      "Please connect a Metamask wallet on the Arbitrum One network."
+    );
   }
   await updateMintMessage(id);
   setDarkMode();
