@@ -13,7 +13,7 @@ const app = express();
 app.use(cors({ methods: ["GET", "POST"] }));
 const port = 3000;
 app.set("view engine", "ejs");
-app.use(express.json());
+app.use(express.json());3
 app.use(express.static("public"));
 
 app.get("/", async (req, res, next) => {
