@@ -9,11 +9,59 @@ let projects = [];
 let contracts = [];
 let mints = [];
 
+const DISPLAY_IPFS_GATEWAY = "https://gateway.pinata.cloud/ipfs/";
+const DISPLAY_IPFS_GATEWAY_PATTERN =
+  /^https:\/\/(ipfs\.io|dweb\.link|w3s\.link|nftstorage\.link)\/ipfs\//;
+
+function rewriteDisplayIpfsUrl(url) {
+  if (typeof url !== "string") {
+    return url;
+  }
+
+  return url.replace(DISPLAY_IPFS_GATEWAY_PATTERN, DISPLAY_IPFS_GATEWAY);
+}
+
+function normalizeProjectDisplayAssets(project) {
+  let normalizedProject = {
+    ...project,
+    img_url: rewriteDisplayIpfsUrl(project.img_url),
+  };
+
+  if (typeof project.summaryData !== "string") {
+    return normalizedProject;
+  }
+
+  try {
+    const summary = JSON.parse(project.summaryData);
+    const [imagesElement, animsElement] = summary.elements ?? [];
+
+    if (Array.isArray(imagesElement?.images)) {
+      imagesElement.images = imagesElement.images.map((image) => ({
+        ...image,
+        ipfs: rewriteDisplayIpfsUrl(image.ipfs),
+      }));
+    }
+
+    if (Array.isArray(animsElement?.anims)) {
+      animsElement.anims = animsElement.anims.map((anim) => ({
+        ...anim,
+        ipfs: rewriteDisplayIpfsUrl(anim.ipfs),
+      }));
+    }
+
+    normalizedProject.summaryData = JSON.stringify(summary);
+  } catch {
+    normalizedProject.summaryData = project.summaryData;
+  }
+
+  return normalizedProject;
+}
+
 const app = express();
 app.use(cors({ methods: ["GET", "POST"] }));
 const port = 3000;
 app.set("view engine", "ejs");
-app.use(express.json());3
+app.use(express.json());
 app.use(express.static("public"));
 
 app.get("/", async (req, res, next) => {
@@ -32,6 +80,7 @@ app.get("/", async (req, res, next) => {
         let newDTG = arr.join(" ");
         item.open_date_gmt = newDTG;
       });
+      projects = projects.map(normalizeProjectDisplayAssets);
       res.render("index.ejs", {
         contracts: contracts,
         mints: mints,
